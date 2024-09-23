@@ -92,16 +92,26 @@ export default {
     },
     async initDetection() {
       await faceapi.loadTinyFaceDetectorModel('/face-api/models')
-      const mediaOpt = { video: true }
+      let mediaOpts = {
+        audio: false,
+        video: {
+          width: this.width,
+          height: this.height,
+          frameRate: {
+            ideal: 100,
+            max: 150
+          } //最佳帧率
+        }
+      }
       try {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-          this.mediaStreamTrack = await navigator.mediaDevices.getUserMedia(mediaOpt)
+          this.mediaStreamTrack = await navigator.mediaDevices.getUserMedia(mediaOpts)
         } else if (navigator.webkitGetUserMedia) {
-          this.mediaStreamTrack = await navigator.webkitGetUserMedia(mediaOpt)
+          this.mediaStreamTrack = await navigator.webkitGetUserMedia(mediaOpts)
         } else if (navigator.mozGetUserMedia) {
-          this.mediaStreamTrack = await navigator.mozGetUserMedia(mediaOpt)
+          this.mediaStreamTrack = await navigator.mozGetUserMedia(mediaOpts)
         } else if (navigator.getUserMedia) {
-          this.mediaStreamTrack = await navigator.getUserMedia(mediaOpt)
+          this.mediaStreamTrack = await navigator.getUserMedia(mediaOpts)
         }
         this.initVideo()
       } catch (error) {
@@ -155,8 +165,8 @@ export default {
     },
     drawFaceBox(dimensions, trackBox, detections, score) {
       this.showEl(trackBox)
-      trackBox.width = this.options.mediaSize.width
-      trackBox.height = this.options.mediaSize.height
+      trackBox.width = this.width
+      trackBox.height = this.height
       const resizedDetections = detections.map(res => res.forSize(trackBox.width, trackBox.height))
       const faceBoxOpts =
         score > this.options.matchedScore
@@ -231,17 +241,20 @@ video {
   width: 100%;
   height: 100%;
 }
+
 .Camera-wrapper {
   margin: 3rem auto;
   position: relative;
   overflow: hidden;
 }
+
 .van-circle {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .canvas-wrapper {
   position: relative;
   -webkit-user-select: none;
@@ -267,6 +280,7 @@ video {
   border-radius: 50%;
   overflow: hidden;
 }
+
 ::v-deep .van-notice-bar__wrap {
   justify-content: center;
 }
