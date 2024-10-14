@@ -18,7 +18,8 @@ import {
   ActionSheet,
   Popup,
   Image,
-  Loading
+  Loading,
+  Uploader
 } from 'vant'
 Vue.use(Button)
 Vue.use(Cell)
@@ -38,3 +39,4 @@ Vue.use(Tabbar)
   .use(Loading)
   .use(Dialog)
   .use(Field)
+  .use(Uploader)

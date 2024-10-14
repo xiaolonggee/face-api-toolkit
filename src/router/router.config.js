@@ -45,8 +45,8 @@ export const constantRouterMap = [
       {
         path: '/faceInput',
         name: 'FaceInput',
-        component: () => import('@/views/home/face-store'),
-        meta: { title: '人脸录入', keepAlive: false }
+        component: () => import('@/views/home/face-input'),
+        meta: { title: '拍照识别', keepAlive: false }
       }
     ]
   }

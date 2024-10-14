@@ -184,7 +184,8 @@ export default {
       })
     },
     async createDetector() {
-      await faceapi.loadTinyFaceDetectorModel('/face-api/models')
+      console.log(faceapi)
+      await faceapi.loadTinyFaceDetectorModel('./face-api/models')
       let mediaOpts = {
         audio: false,
         video: {

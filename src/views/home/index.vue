@@ -5,7 +5,7 @@
     </van-cell-group>
     <van-cell-group title="人脸识别">
       <van-cell title="1:N识别" is-link to="faceDetection" />
-      <van-cell title="人脸录入" is-link to="faceInput" />
+      <van-cell title="拍照识别" is-link to="faceInput" />
       <van-cell title="人脸库管理" is-link to="faceStore" />
     </van-cell-group>
   </div>
